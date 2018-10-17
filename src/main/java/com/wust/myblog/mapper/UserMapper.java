@@ -37,4 +37,5 @@ public interface UserMapper {
     String getUsernameByEmail(String email);
 
     User selectByUsername(String username);
+
 }

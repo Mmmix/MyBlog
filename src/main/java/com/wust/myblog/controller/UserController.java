@@ -12,11 +12,13 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("user")
 public class UserController {
+
     @Autowired
     IUserService iUserService;
 
     @RequestMapping("/getUser")
     public Result getUser(){
-        return ResultUtil.success((String)SecurityUtils.getSubject().getPrincipal());
+        User  user = (User) SecurityUtils.getSubject().getPrincipal();
+        return ResultUtil.success(user);
     }
 }

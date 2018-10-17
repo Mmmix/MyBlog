@@ -25,7 +25,7 @@ import java.util.UUID;
 @Transactional
 public class UserService implements IUserService {
 
-    Logger log = LoggerFactory.getLogger(this.getClass());
+    private Logger log = LoggerFactory.getLogger(this.getClass());
 
     @Autowired
     UserMapper userMapper;
