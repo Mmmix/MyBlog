@@ -43,7 +43,9 @@ public class UserService implements IUserService {
             user.setUsername(username);
         }
         User u = userMapper.selectByUsername(user.getUsername());
-        if (u!=null&&u.getState()==0){
+        if (u==null) {
+            return ResultUtil.error("用户不存在");
+        }else if (u.getState()==0){
             return ResultUtil.error("用户未激活");
         }
 
@@ -51,8 +53,13 @@ public class UserService implements IUserService {
         Subject subject = SecurityUtils.getSubject();
         // 在认证提交前准备 token（令牌）
         UsernamePasswordToken token = new UsernamePasswordToken(user.getUsername(), user.getPassword());
+        System.out.println(user.getPassword());
         // 执行认证登陆
-        subject.login(token);
+        try {
+            subject.login(token);
+        }catch (Exception e){
+            return ResultUtil.error(e.getMessage());
+        }
         //根据权限，指定返回数据
         String role = userMapper.getRole(user.getUsername());
         if ("user".equals(role)) {

@@ -39,8 +39,9 @@ public class LoginController {
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     public Result login(User user) {
         Result result = iUserService.loginCheck(user);
-        if (result.getCode()==200)
+        if (result.getCode()==200) {
             return iUserService.login(user);
+        }
         return result;
     }
 

@@ -2,6 +2,7 @@ package com.wust.myblog.shiro;
 
 import com.wust.myblog.mapper.UserMapper;
 import com.wust.myblog.modal.User;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.authz.AuthorizationInfo;
@@ -12,6 +13,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -35,7 +37,7 @@ public class CustomRealm extends AuthorizingRealm {
         // 从数据库获取对应用户名密码的用户
         User user = userMapper.selectByUsername(token.getUsername());
         String password = user.getPassword();
-        logger.info("password----->"+password);
+        logger.info("password----->"+ new String((char[]) token.getCredentials()));
         if (null == password) {
             throw new AccountException("用户名不正确");
         } else if (!password.equals(new String((char[]) token.getCredentials()))) {
