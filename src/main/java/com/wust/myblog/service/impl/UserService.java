@@ -1,5 +1,7 @@
 package com.wust.myblog.service.impl;
 
+import cn.hutool.core.date.DateUnit;
+import cn.hutool.core.date.DateUtil;
 import com.wust.myblog.mapper.UserMapper;
 import com.wust.myblog.modal.Result;
 import com.wust.myblog.modal.User;
@@ -19,6 +21,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.UUID;
 
 @Service
@@ -86,7 +89,7 @@ public class UserService implements IUserService {
         user.setActicode(activeToken);
         user.setTokenExptime(new Date());
         user.setState(0);
-        user.setRole(0);
+        user.setRole(2);
         if (userMapper.insertSelective(user)>0){
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
             StringBuffer sb=new StringBuffer("<div style=\"width:660px;overflow:hidden;border-bottom:1px solid #bdbdbe;\"><div style=\"height:52px;overflow:hidden;border:1px solid #464c51;background:#353b3f url(http://www.lofter.com/rsc/img/email/hdbg.png);\"><a href=\"http://www.lofter.com?mail=qbclickbynoticemail_20120626_01\" target=\"_blank\" style=\"display:block;width:144px;height:34px;margin:10px 0 0 20px;overflow:hidden;text-indent:-2000px;background:url(http://www.lofter.com/rsc/img/email/logo.png) no-repeat;\">LOFTER</a></div>"+"<div style=\"padding:24px 20px;\">您好，"+email+"<br/><br/>LOFTER是一款\"专注兴趣、分享创作\"的轻博客产品，旨在为\"热爱记录生活、追求时尚品质、崇尚自由空间\"的你，打造一个全新而定展示平台！<br/><br/>请点击下面链接激活账号，24小时生效，否则重新注册账号，链接只能使用一次，请尽快激活！</br>");
@@ -103,7 +106,7 @@ public class UserService implements IUserService {
             //发送邮件
             SendEmail.send(email, sb.toString());
         }
-        return ResultUtil.success();
+        return ResultUtil.success("注册成功，请登陆邮箱激活！");
     }
 
     @Override
@@ -112,8 +115,11 @@ public class UserService implements IUserService {
         if (user==null||user.getState()==1){
             return ResultUtil.error("无效操作");
         }else {
+            if (user.getTokenExptime().getTime()< DateUtil.offsetDay(new Date(),-1).getTime())
+                return ResultUtil.error("当前token已过期");
             if (StringUtils.equals(user.getActicode(),token)){
                 user.setState(1);
+                user.setTokenExptime(DateUtil.offsetDay(new Date(),-1));
                 if (userMapper.updateByPrimaryKeySelective(user)>0){
                     return ResultUtil.success("激活成功！");
                 }
@@ -121,6 +127,11 @@ public class UserService implements IUserService {
             }
             return ResultUtil.error("无效操作");
         }
+    }
+
+    @Override
+    public Result forgetUser(String email) {
+        return null;
     }
 
     @Override

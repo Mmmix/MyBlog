@@ -4,16 +4,18 @@ import com.wust.myblog.mapper.UserMapper;
 import com.wust.myblog.modal.Result;
 import com.wust.myblog.modal.User;
 import com.wust.myblog.service.IUserService;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import com.wust.myblog.util.ResultUtil;
 
-
+@CrossOrigin
 @RestController
 public class LoginController {
 
@@ -56,5 +58,12 @@ public class LoginController {
     @RequestMapping(value = "/actiUser",method = RequestMethod.GET)
     public Result active(String username,String token){
         return iUserService.active(username,token);
+    }
+
+    @RequestMapping(value = "/forgetPwd",method = RequestMethod.GET)
+    public Result forget(String  email){
+        if (StringUtils.isNoneBlank(email))
+            return iUserService.forgetUser(email);
+        return ResultUtil.error("请输入您的邮箱");
     }
 }

@@ -34,6 +34,9 @@
         </javaClientGenerator>
         <!--生成对应表及类名-->
         <!--<table tableName="stocktradeinfo" domainObjectName="StockTradeInfo" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>-->
-        <table tableName="user" domainObjectName="User"/>
+        <!--<table tableName="user" domainObjectName="User"/>-->
+        <table tableName="blog" domainObjectName="Blog" />
+        <table tableName="comment" domainObjectName="Comment"/>
+        <table tableName="tag" domainObjectName="Tag"/>
     </context>
 </generatorConfiguration>

@@ -4,9 +4,11 @@ import com.wust.myblog.modal.Result;
 import com.wust.myblog.modal.User;
 import com.wust.myblog.util.ResultUtil;
 import org.apache.shiro.SecurityUtils;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+@CrossOrigin
 @RequestMapping(value = "admin")
 @RestController
 public class AdminController {
