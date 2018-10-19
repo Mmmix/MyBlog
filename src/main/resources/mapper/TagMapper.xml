@@ -67,7 +67,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    id, name, describe, create_time, update_time
+    id, name, `describe`, create_time, update_time
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.wust.myblog.modal.TagExample" >
     select
@@ -100,7 +100,7 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.wust.myblog.modal.Tag" >
-    insert into tag (id, name, describe, 
+    insert into tag (id, name, `describe`,
       create_time, update_time)
     values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{describe,jdbcType=VARCHAR},
             now(), now())
@@ -115,10 +115,10 @@
         name,
       </if>
       <if test="describe != null" >
-        describe,
+        `describe`,
       </if>
-      now(),
-      now(),
+      create_time,
+      update_time,
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -179,7 +179,7 @@
         name = #{name,jdbcType=VARCHAR},
       </if>
       <if test="describe != null" >
-        describe = #{describe,jdbcType=VARCHAR},
+        `describe` = #{describe,jdbcType=VARCHAR},
       </if>
       <if test="createTime != null" >
         create_time = #{createTime,jdbcType=TIMESTAMP},
@@ -193,7 +193,7 @@
   <update id="updateByPrimaryKey" parameterType="com.wust.myblog.modal.Tag" >
     update tag
     set name = #{name,jdbcType=VARCHAR},
-      describe = #{describe,jdbcType=VARCHAR},
+      `describe` = #{describe,jdbcType=VARCHAR},
       create_time = #{createTime,jdbcType=TIMESTAMP},
       update_time = now()
     where id = #{id,jdbcType=INTEGER}

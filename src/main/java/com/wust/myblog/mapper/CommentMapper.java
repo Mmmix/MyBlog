@@ -4,7 +4,9 @@ import com.wust.myblog.modal.Comment;
 import com.wust.myblog.modal.CommentExample;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public interface CommentMapper {
     int countByExample(CommentExample example);
 

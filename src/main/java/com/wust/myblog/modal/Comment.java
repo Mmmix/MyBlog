@@ -1,5 +1,7 @@
 package com.wust.myblog.modal;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.util.Date;
 
 public class Comment {
@@ -13,6 +15,7 @@ public class Comment {
 
     private String content;
 
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone="GMT+8")
     private Date createTime;
 
     public Integer getId() {
