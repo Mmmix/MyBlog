@@ -102,8 +102,8 @@
   <insert id="insert" parameterType="com.wust.myblog.modal.Tag" >
     insert into tag (id, name, describe, 
       create_time, update_time)
-    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{describe,jdbcType=VARCHAR}, 
-      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP})
+    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{describe,jdbcType=VARCHAR},
+            now(), now())
   </insert>
   <insert id="insertSelective" parameterType="com.wust.myblog.modal.Tag" >
     insert into tag
@@ -117,12 +117,8 @@
       <if test="describe != null" >
         describe,
       </if>
-      <if test="createTime != null" >
-        create_time,
-      </if>
-      <if test="updateTime != null" >
-        update_time,
-      </if>
+      now(),
+      now(),
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -134,12 +130,8 @@
       <if test="describe != null" >
         #{describe,jdbcType=VARCHAR},
       </if>
-      <if test="createTime != null" >
-        #{createTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="updateTime != null" >
-        #{updateTime,jdbcType=TIMESTAMP},
-      </if>
+      now(),
+      now(),
     </trim>
   </insert>
   <select id="countByExample" parameterType="com.wust.myblog.modal.TagExample" resultType="java.lang.Integer" >
@@ -163,9 +155,7 @@
       <if test="record.createTime != null" >
         create_time = #{record.createTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="record.updateTime != null" >
-        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
-      </if>
+        update_time = now(),
     </set>
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
@@ -177,7 +167,7 @@
       name = #{record.name,jdbcType=VARCHAR},
       describe = #{record.describe,jdbcType=VARCHAR},
       create_time = #{record.createTime,jdbcType=TIMESTAMP},
-      update_time = #{record.updateTime,jdbcType=TIMESTAMP}
+      update_time = now()
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -195,7 +185,7 @@
         create_time = #{createTime,jdbcType=TIMESTAMP},
       </if>
       <if test="updateTime != null" >
-        update_time = #{updateTime,jdbcType=TIMESTAMP},
+        update_time = now(),
       </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
@@ -205,7 +195,7 @@
     set name = #{name,jdbcType=VARCHAR},
       describe = #{describe,jdbcType=VARCHAR},
       create_time = #{createTime,jdbcType=TIMESTAMP},
-      update_time = #{updateTime,jdbcType=TIMESTAMP}
+      update_time = now()
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

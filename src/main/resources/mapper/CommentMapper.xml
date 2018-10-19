@@ -7,6 +7,7 @@
     <result column="blog_id" property="blogId" jdbcType="INTEGER" />
     <result column="user_id" property="userId" jdbcType="INTEGER" />
     <result column="content" property="content" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -67,7 +68,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    id, parent_id, blog_id, user_id, content
+    id, parent_id, blog_id, user_id, content, create_time
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.wust.myblog.modal.CommentExample" >
     select
@@ -101,9 +102,11 @@
   </delete>
   <insert id="insert" parameterType="com.wust.myblog.modal.Comment" >
     insert into comment (id, parent_id, blog_id, 
-      user_id, content)
+      user_id, content, create_time
+      )
     values (#{id,jdbcType=INTEGER}, #{parentId,jdbcType=INTEGER}, #{blogId,jdbcType=INTEGER}, 
-      #{userId,jdbcType=INTEGER}, #{content,jdbcType=VARCHAR})
+      #{userId,jdbcType=INTEGER}, #{content,jdbcType=VARCHAR}, now()
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.wust.myblog.modal.Comment" >
     insert into comment
@@ -123,6 +126,7 @@
       <if test="content != null" >
         content,
       </if>
+        create_time
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -140,6 +144,7 @@
       <if test="content != null" >
         #{content,jdbcType=VARCHAR},
       </if>
+      now()
     </trim>
   </insert>
   <select id="countByExample" parameterType="com.wust.myblog.modal.CommentExample" resultType="java.lang.Integer" >
@@ -166,6 +171,7 @@
       <if test="record.content != null" >
         content = #{record.content,jdbcType=VARCHAR},
       </if>
+        create_time = now()
     </set>
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
@@ -177,7 +183,8 @@
       parent_id = #{record.parentId,jdbcType=INTEGER},
       blog_id = #{record.blogId,jdbcType=INTEGER},
       user_id = #{record.userId,jdbcType=INTEGER},
-      content = #{record.content,jdbcType=VARCHAR}
+      content = #{record.content,jdbcType=VARCHAR},
+      create_time = now()
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -197,6 +204,7 @@
       <if test="content != null" >
         content = #{content,jdbcType=VARCHAR},
       </if>
+        create_time = now()
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
@@ -205,7 +213,8 @@
     set parent_id = #{parentId,jdbcType=INTEGER},
       blog_id = #{blogId,jdbcType=INTEGER},
       user_id = #{userId,jdbcType=INTEGER},
-      content = #{content,jdbcType=VARCHAR}
+      content = #{content,jdbcType=VARCHAR},
+      create_time = now()
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

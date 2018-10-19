@@ -129,7 +129,7 @@
       comment, create_time, update_time, 
       context)
     values (#{id,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR}, #{read,jdbcType=INTEGER}, 
-      #{comment,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, 
+      #{comment,jdbcType=VARCHAR}, now(), now(),
       #{context,jdbcType=LONGVARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.wust.myblog.modal.Blog" >
@@ -147,12 +147,8 @@
       <if test="comment != null" >
         comment,
       </if>
-      <if test="createTime != null" >
-        create_time,
-      </if>
-      <if test="updateTime != null" >
-        update_time,
-      </if>
+      now(),
+      now(),
       <if test="context != null" >
         context,
       </if>
@@ -170,12 +166,8 @@
       <if test="comment != null" >
         #{comment,jdbcType=VARCHAR},
       </if>
-      <if test="createTime != null" >
-        #{createTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="updateTime != null" >
-        #{updateTime,jdbcType=TIMESTAMP},
-      </if>
+      now(),
+      now(),
       <if test="context != null" >
         #{context,jdbcType=LONGVARCHAR},
       </if>
@@ -205,9 +197,7 @@
       <if test="record.createTime != null" >
         create_time = #{record.createTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="record.updateTime != null" >
-        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
-      </if>
+      now(),
       <if test="record.context != null" >
         context = #{record.context,jdbcType=LONGVARCHAR},
       </if>
@@ -223,7 +213,7 @@
       read = #{record.read,jdbcType=INTEGER},
       comment = #{record.comment,jdbcType=VARCHAR},
       create_time = #{record.createTime,jdbcType=TIMESTAMP},
-      update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      update_time = now(),
       context = #{record.context,jdbcType=LONGVARCHAR}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
@@ -236,7 +226,7 @@
       read = #{record.read,jdbcType=INTEGER},
       comment = #{record.comment,jdbcType=VARCHAR},
       create_time = #{record.createTime,jdbcType=TIMESTAMP},
-      update_time = #{record.updateTime,jdbcType=TIMESTAMP}
+      update_time = now()
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -256,9 +246,7 @@
       <if test="createTime != null" >
         create_time = #{createTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="updateTime != null" >
-        update_time = #{updateTime,jdbcType=TIMESTAMP},
-      </if>
+        update_time = now(),
       <if test="context != null" >
         context = #{context,jdbcType=LONGVARCHAR},
       </if>
@@ -271,7 +259,7 @@
       read = #{read,jdbcType=INTEGER},
       comment = #{comment,jdbcType=VARCHAR},
       create_time = #{createTime,jdbcType=TIMESTAMP},
-      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      update_time = now(),
       context = #{context,jdbcType=LONGVARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
@@ -281,7 +269,7 @@
       read = #{read,jdbcType=INTEGER},
       comment = #{comment,jdbcType=VARCHAR},
       create_time = #{createTime,jdbcType=TIMESTAMP},
-      update_time = #{updateTime,jdbcType=TIMESTAMP}
+      update_time = now()
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

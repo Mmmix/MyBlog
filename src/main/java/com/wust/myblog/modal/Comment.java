@@ -1,5 +1,7 @@
 package com.wust.myblog.modal;
 
+import java.util.Date;
+
 public class Comment {
     private Integer id;
 
@@ -10,6 +12,8 @@ public class Comment {
     private Integer userId;
 
     private String content;
+
+    private Date createTime;
 
     public Integer getId() {
         return id;
@@ -49,5 +53,13 @@ public class Comment {
 
     public void setContent(String content) {
         this.content = content == null ? null : content.trim();
+    }
+
+    public Date getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
     }
 }
