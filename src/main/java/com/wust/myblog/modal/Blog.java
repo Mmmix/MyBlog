@@ -11,7 +11,7 @@ public class Blog {
 
     private Integer read;
 
-    private String comment;
+    private Integer comment;
 
     @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone="GMT+8")
     private Date createTime;
@@ -45,12 +45,12 @@ public class Blog {
         this.read = read;
     }
 
-    public String getComment() {
+    public Integer getComment() {
         return comment;
     }
 
-    public void setComment(String comment) {
-        this.comment = comment == null ? null : comment.trim();
+    public void setComment(Integer comment) {
+        this.comment = comment;
     }
 
     public Date getCreateTime() {

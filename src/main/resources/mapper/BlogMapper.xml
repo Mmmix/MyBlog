@@ -5,7 +5,7 @@
     <id column="id" property="id" jdbcType="INTEGER" />
     <result column="title" property="title" jdbcType="VARCHAR" />
     <result column="read" property="read" jdbcType="INTEGER" />
-    <result column="comment" property="comment" jdbcType="VARCHAR" />
+    <result column="comment" property="comment" jdbcType="INTEGER" />
     <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
     <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
   </resultMap>
@@ -71,7 +71,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    id, title, read, comment, create_time, update_time
+    id, title, `read`, comment, create_time, update_time
   </sql>
   <sql id="Blob_Column_List" >
     context
@@ -142,13 +142,13 @@
         title,
       </if>
       <if test="read != null" >
-        read,
+        `read`,
       </if>
       <if test="comment != null" >
         comment,
       </if>
-      now(),
-      now(),
+      create_time,
+      update_time,
       <if test="context != null" >
         context,
       </if>
@@ -189,7 +189,7 @@
         title = #{record.title,jdbcType=VARCHAR},
       </if>
       <if test="record.read != null" >
-        read = #{record.read,jdbcType=INTEGER},
+        `read` = #{record.read,jdbcType=INTEGER},
       </if>
       <if test="record.comment != null" >
         comment = #{record.comment,jdbcType=VARCHAR},
@@ -210,7 +210,7 @@
     update blog
     set id = #{record.id,jdbcType=INTEGER},
       title = #{record.title,jdbcType=VARCHAR},
-      read = #{record.read,jdbcType=INTEGER},
+      `read` = #{record.read,jdbcType=INTEGER},
       comment = #{record.comment,jdbcType=VARCHAR},
       create_time = #{record.createTime,jdbcType=TIMESTAMP},
       update_time = now(),
@@ -223,7 +223,7 @@
     update blog
     set id = #{record.id,jdbcType=INTEGER},
       title = #{record.title,jdbcType=VARCHAR},
-      read = #{record.read,jdbcType=INTEGER},
+      `read` = #{record.read,jdbcType=INTEGER},
       comment = #{record.comment,jdbcType=VARCHAR},
       create_time = #{record.createTime,jdbcType=TIMESTAMP},
       update_time = now()
@@ -238,7 +238,7 @@
         title = #{title,jdbcType=VARCHAR},
       </if>
       <if test="read != null" >
-        read = #{read,jdbcType=INTEGER},
+        `read` = #{read,jdbcType=INTEGER},
       </if>
       <if test="comment != null" >
         comment = #{comment,jdbcType=VARCHAR},
@@ -256,7 +256,7 @@
   <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.wust.myblog.modal.Blog" >
     update blog
     set title = #{title,jdbcType=VARCHAR},
-      read = #{read,jdbcType=INTEGER},
+      `read` = #{read,jdbcType=INTEGER},
       comment = #{comment,jdbcType=VARCHAR},
       create_time = #{createTime,jdbcType=TIMESTAMP},
       update_time = now(),

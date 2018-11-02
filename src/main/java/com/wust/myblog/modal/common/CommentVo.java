@@ -1,14 +1,14 @@
-package com.wust.myblog.modal;
+package com.wust.myblog.modal.common;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.wust.myblog.modal.Comment;
 
 import java.util.Date;
 import java.util.List;
 
-public class Comment {
-    private Integer id;
+public class CommentVo {
 
-    private Integer parentId;
+    private Integer id;
 
     private Integer blogId;
 
@@ -19,20 +19,22 @@ public class Comment {
     @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone="GMT+8")
     private Date createTime;
 
+    private List<Comment> childComment;
+
+    public Date getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
+    }
+
     public Integer getId() {
         return id;
     }
 
     public void setId(Integer id) {
         this.id = id;
-    }
-
-    public Integer getParentId() {
-        return parentId;
-    }
-
-    public void setParentId(Integer parentId) {
-        this.parentId = parentId;
     }
 
     public Integer getBlogId() {
@@ -56,14 +58,14 @@ public class Comment {
     }
 
     public void setContent(String content) {
-        this.content = content == null ? null : content.trim();
+        this.content = content;
     }
 
-    public Date getCreateTime() {
-        return createTime;
+    public List<Comment> getChildComment() {
+        return childComment;
     }
 
-    public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
+    public void setChildComment(List<Comment> childComment) {
+        this.childComment = childComment;
     }
 }

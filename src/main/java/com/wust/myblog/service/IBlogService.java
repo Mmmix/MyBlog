@@ -1,5 +1,12 @@
 package com.wust.myblog.service;
 
-public interface IBlogService {
+import com.wust.myblog.modal.Blog;
+import com.wust.myblog.modal.Result;
 
+public interface IBlogService {
+    Result addBlog(Blog blog);
+    Result listBlog(String title,Integer pageNum,Integer pageSize);
+    Result selectBlogById(Integer id);
+    Result deleteBlog(Blog blog);
+    Result setBlogTag(Blog blog);
 }
