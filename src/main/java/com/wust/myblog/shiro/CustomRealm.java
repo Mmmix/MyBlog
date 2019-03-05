@@ -33,11 +33,11 @@ public class CustomRealm extends AuthorizingRealm {
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authenticationToken) throws AuthenticationException {
         System.out.println("————身份认证方法————");
         UsernamePasswordToken token = (UsernamePasswordToken) authenticationToken;
-        logger.info("user---->"+token.getUsername());
+        //logger.info("user---->"+token.getUsername());
         // 从数据库获取对应用户名密码的用户
         User user = userMapper.selectByUsername(token.getUsername());
         String password = user.getPassword();
-        logger.info("password----->"+ new String((char[]) token.getCredentials()));
+        //logger.info("password----->"+ new String((char[]) token.getCredentials()));
         if (null == password) {
             throw new AccountException("用户名不正确");
         } else if (!password.equals(new String((char[]) token.getCredentials()))) {

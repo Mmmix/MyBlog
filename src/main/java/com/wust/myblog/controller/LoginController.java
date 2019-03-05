@@ -1,13 +1,9 @@
 package com.wust.myblog.controller;
 
-import com.wust.myblog.mapper.UserMapper;
 import com.wust.myblog.modal.Result;
 import com.wust.myblog.modal.User;
 import com.wust.myblog.service.IUserService;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.shiro.SecurityUtils;
-import org.apache.shiro.authc.UsernamePasswordToken;
-import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;

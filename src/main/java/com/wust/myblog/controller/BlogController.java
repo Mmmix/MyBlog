@@ -8,6 +8,8 @@ import com.wust.myblog.util.ResultUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.concurrent.locks.ReentrantLock;
+
 @CrossOrigin
 @RestController
 @RequestMapping("blog")
@@ -18,6 +20,7 @@ public class BlogController {
     @RequestMapping(value = "detail",method = RequestMethod.GET)
     public String detail(Integer id){
         Result result = iBlogService.selectBlogById(id);
+
         return ((Blog)result.getData()).getContext();
     }
 

@@ -13,10 +13,12 @@ import com.wust.myblog.util.ResultUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
 public class BlogService implements IBlogService {
+
     @Autowired
     BlogMapper blogMapper;
 
@@ -41,7 +43,12 @@ public class BlogService implements IBlogService {
             BlogExample blogExample = new BlogExample();
             BlogExample.Criteria criteria = blogExample.createCriteria();
             criteria.andTitleLike("%"+title+"%");
-            pageInfo = new PageInfo<>(blogMapper.selectByExample(blogExample));
+            List<Blog> blogList;
+            blogList = blogMapper.selectByExampleWithBLOBs(blogExample);
+            blogList.forEach(blog->{
+                blog.setContext(blog.getContext().substring(0,200));
+            });
+            pageInfo = new PageInfo<>(blogList);
         }
         return ResultUtil.success(pageInfo);
     }

@@ -19,4 +19,5 @@ public interface IUserService {
     Result active(String username, String token);
 
     Result forgetUser(String email);
+
 }

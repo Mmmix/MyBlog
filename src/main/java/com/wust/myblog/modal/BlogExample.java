@@ -235,6 +235,76 @@ public class BlogExample {
             return (Criteria) this;
         }
 
+        public Criteria andSubimageIsNull() {
+            addCriterion("subimage is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andSubimageIsNotNull() {
+            addCriterion("subimage is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andSubimageEqualTo(String value) {
+            addCriterion("subimage =", value, "subimage");
+            return (Criteria) this;
+        }
+
+        public Criteria andSubimageNotEqualTo(String value) {
+            addCriterion("subimage <>", value, "subimage");
+            return (Criteria) this;
+        }
+
+        public Criteria andSubimageGreaterThan(String value) {
+            addCriterion("subimage >", value, "subimage");
+            return (Criteria) this;
+        }
+
+        public Criteria andSubimageGreaterThanOrEqualTo(String value) {
+            addCriterion("subimage >=", value, "subimage");
+            return (Criteria) this;
+        }
+
+        public Criteria andSubimageLessThan(String value) {
+            addCriterion("subimage <", value, "subimage");
+            return (Criteria) this;
+        }
+
+        public Criteria andSubimageLessThanOrEqualTo(String value) {
+            addCriterion("subimage <=", value, "subimage");
+            return (Criteria) this;
+        }
+
+        public Criteria andSubimageLike(String value) {
+            addCriterion("subimage like", value, "subimage");
+            return (Criteria) this;
+        }
+
+        public Criteria andSubimageNotLike(String value) {
+            addCriterion("subimage not like", value, "subimage");
+            return (Criteria) this;
+        }
+
+        public Criteria andSubimageIn(List<String> values) {
+            addCriterion("subimage in", values, "subimage");
+            return (Criteria) this;
+        }
+
+        public Criteria andSubimageNotIn(List<String> values) {
+            addCriterion("subimage not in", values, "subimage");
+            return (Criteria) this;
+        }
+
+        public Criteria andSubimageBetween(String value1, String value2) {
+            addCriterion("subimage between", value1, value2, "subimage");
+            return (Criteria) this;
+        }
+
+        public Criteria andSubimageNotBetween(String value1, String value2) {
+            addCriterion("subimage not between", value1, value2, "subimage");
+            return (Criteria) this;
+        }
+
         public Criteria andReadIsNull() {
             addCriterion("read is null");
             return (Criteria) this;
@@ -305,62 +375,52 @@ public class BlogExample {
             return (Criteria) this;
         }
 
-        public Criteria andCommentEqualTo(String value) {
+        public Criteria andCommentEqualTo(Integer value) {
             addCriterion("comment =", value, "comment");
             return (Criteria) this;
         }
 
-        public Criteria andCommentNotEqualTo(String value) {
+        public Criteria andCommentNotEqualTo(Integer value) {
             addCriterion("comment <>", value, "comment");
             return (Criteria) this;
         }
 
-        public Criteria andCommentGreaterThan(String value) {
+        public Criteria andCommentGreaterThan(Integer value) {
             addCriterion("comment >", value, "comment");
             return (Criteria) this;
         }
 
-        public Criteria andCommentGreaterThanOrEqualTo(String value) {
+        public Criteria andCommentGreaterThanOrEqualTo(Integer value) {
             addCriterion("comment >=", value, "comment");
             return (Criteria) this;
         }
 
-        public Criteria andCommentLessThan(String value) {
+        public Criteria andCommentLessThan(Integer value) {
             addCriterion("comment <", value, "comment");
             return (Criteria) this;
         }
 
-        public Criteria andCommentLessThanOrEqualTo(String value) {
+        public Criteria andCommentLessThanOrEqualTo(Integer value) {
             addCriterion("comment <=", value, "comment");
             return (Criteria) this;
         }
 
-        public Criteria andCommentLike(String value) {
-            addCriterion("comment like", value, "comment");
-            return (Criteria) this;
-        }
-
-        public Criteria andCommentNotLike(String value) {
-            addCriterion("comment not like", value, "comment");
-            return (Criteria) this;
-        }
-
-        public Criteria andCommentIn(List<String> values) {
+        public Criteria andCommentIn(List<Integer> values) {
             addCriterion("comment in", values, "comment");
             return (Criteria) this;
         }
 
-        public Criteria andCommentNotIn(List<String> values) {
+        public Criteria andCommentNotIn(List<Integer> values) {
             addCriterion("comment not in", values, "comment");
             return (Criteria) this;
         }
 
-        public Criteria andCommentBetween(String value1, String value2) {
+        public Criteria andCommentBetween(Integer value1, Integer value2) {
             addCriterion("comment between", value1, value2, "comment");
             return (Criteria) this;
         }
 
-        public Criteria andCommentNotBetween(String value1, String value2) {
+        public Criteria andCommentNotBetween(Integer value1, Integer value2) {
             addCriterion("comment not between", value1, value2, "comment");
             return (Criteria) this;
         }

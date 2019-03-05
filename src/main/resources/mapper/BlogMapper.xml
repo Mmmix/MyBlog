@@ -4,6 +4,7 @@
   <resultMap id="BaseResultMap" type="com.wust.myblog.modal.Blog" >
     <id column="id" property="id" jdbcType="INTEGER" />
     <result column="title" property="title" jdbcType="VARCHAR" />
+    <result column="subimage" property="subimage" jdbcType="VARCHAR" />
     <result column="read" property="read" jdbcType="INTEGER" />
     <result column="comment" property="comment" jdbcType="INTEGER" />
     <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
@@ -71,7 +72,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    id, title, `read`, comment, create_time, update_time
+    id, title, subimage, `read`, comment, create_time, update_time
   </sql>
   <sql id="Blob_Column_List" >
     context
@@ -125,12 +126,12 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.wust.myblog.modal.Blog" >
-    insert into blog (id, title, read, 
-      comment, create_time, update_time, 
-      context)
-    values (#{id,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR}, #{read,jdbcType=INTEGER}, 
-      #{comment,jdbcType=VARCHAR}, now(), now(),
-      #{context,jdbcType=LONGVARCHAR})
+    insert into blog (id, title, subimage, 
+      `read`, comment, create_time,
+      update_time, context)
+    values (#{id,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR}, #{subimage,jdbcType=VARCHAR}, 
+      #{read,jdbcType=INTEGER}, #{comment,jdbcType=INTEGER}, now(),
+      now(), #{context,jdbcType=LONGVARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.wust.myblog.modal.Blog" >
     insert into blog
@@ -141,17 +142,20 @@
       <if test="title != null" >
         title,
       </if>
+      <if test="subimage != null" >
+        subimage,
+      </if>
       <if test="read != null" >
         `read`,
       </if>
       <if test="comment != null" >
         comment,
       </if>
-      create_time,
-      update_time,
       <if test="context != null" >
         context,
       </if>
+        create_time,
+        update_time
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -160,17 +164,20 @@
       <if test="title != null" >
         #{title,jdbcType=VARCHAR},
       </if>
+      <if test="subimage != null" >
+        #{subimage,jdbcType=VARCHAR},
+      </if>
       <if test="read != null" >
         #{read,jdbcType=INTEGER},
       </if>
       <if test="comment != null" >
-        #{comment,jdbcType=VARCHAR},
+        #{comment,jdbcType=INTEGER},
       </if>
-      now(),
-      now(),
       <if test="context != null" >
         #{context,jdbcType=LONGVARCHAR},
       </if>
+      now(),
+      now()
     </trim>
   </insert>
   <select id="countByExample" parameterType="com.wust.myblog.modal.BlogExample" resultType="java.lang.Integer" >
@@ -188,19 +195,22 @@
       <if test="record.title != null" >
         title = #{record.title,jdbcType=VARCHAR},
       </if>
+      <if test="record.subimage != null" >
+        subimage = #{record.subimage,jdbcType=VARCHAR},
+      </if>
       <if test="record.read != null" >
         `read` = #{record.read,jdbcType=INTEGER},
       </if>
       <if test="record.comment != null" >
-        comment = #{record.comment,jdbcType=VARCHAR},
+        comment = #{record.comment,jdbcType=INTEGER},
+      </if>
+      <if test="record.context != null" >
+        context = #{record.context,jdbcType=LONGVARCHAR},
       </if>
       <if test="record.createTime != null" >
         create_time = #{record.createTime,jdbcType=TIMESTAMP},
       </if>
-      now(),
-      <if test="record.context != null" >
-        context = #{record.context,jdbcType=LONGVARCHAR},
-      </if>
+        update_time = now(),
     </set>
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
@@ -210,8 +220,9 @@
     update blog
     set id = #{record.id,jdbcType=INTEGER},
       title = #{record.title,jdbcType=VARCHAR},
+      subimage = #{record.subimage,jdbcType=VARCHAR},
       `read` = #{record.read,jdbcType=INTEGER},
-      comment = #{record.comment,jdbcType=VARCHAR},
+      comment = #{record.comment,jdbcType=INTEGER},
       create_time = #{record.createTime,jdbcType=TIMESTAMP},
       update_time = now(),
       context = #{record.context,jdbcType=LONGVARCHAR}
@@ -223,8 +234,9 @@
     update blog
     set id = #{record.id,jdbcType=INTEGER},
       title = #{record.title,jdbcType=VARCHAR},
+      subimage = #{record.subimage,jdbcType=VARCHAR},
       `read` = #{record.read,jdbcType=INTEGER},
-      comment = #{record.comment,jdbcType=VARCHAR},
+      comment = #{record.comment,jdbcType=INTEGER},
       create_time = #{record.createTime,jdbcType=TIMESTAMP},
       update_time = now()
     <if test="_parameter != null" >
@@ -237,27 +249,31 @@
       <if test="title != null" >
         title = #{title,jdbcType=VARCHAR},
       </if>
+      <if test="subimage != null" >
+        subimage = #{subimage,jdbcType=VARCHAR},
+      </if>
       <if test="read != null" >
         `read` = #{read,jdbcType=INTEGER},
       </if>
       <if test="comment != null" >
-        comment = #{comment,jdbcType=VARCHAR},
+        comment = #{comment,jdbcType=INTEGER},
+      </if>
+      <if test="context != null" >
+        context = #{context,jdbcType=LONGVARCHAR},
       </if>
       <if test="createTime != null" >
         create_time = #{createTime,jdbcType=TIMESTAMP},
       </if>
         update_time = now(),
-      <if test="context != null" >
-        context = #{context,jdbcType=LONGVARCHAR},
-      </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.wust.myblog.modal.Blog" >
     update blog
     set title = #{title,jdbcType=VARCHAR},
+      subimage = #{subimage,jdbcType=VARCHAR},
       `read` = #{read,jdbcType=INTEGER},
-      comment = #{comment,jdbcType=VARCHAR},
+      comment = #{comment,jdbcType=INTEGER},
       create_time = #{createTime,jdbcType=TIMESTAMP},
       update_time = now(),
       context = #{context,jdbcType=LONGVARCHAR}
@@ -266,8 +282,9 @@
   <update id="updateByPrimaryKey" parameterType="com.wust.myblog.modal.Blog" >
     update blog
     set title = #{title,jdbcType=VARCHAR},
-      read = #{read,jdbcType=INTEGER},
-      comment = #{comment,jdbcType=VARCHAR},
+      subimage = #{subimage,jdbcType=VARCHAR},
+      `read` = #{read,jdbcType=INTEGER},
+      comment = #{comment,jdbcType=INTEGER},
       create_time = #{createTime,jdbcType=TIMESTAMP},
       update_time = now()
     where id = #{id,jdbcType=INTEGER}
