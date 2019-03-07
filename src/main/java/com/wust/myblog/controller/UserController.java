@@ -8,6 +8,7 @@ import org.apache.shiro.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 @CrossOrigin
@@ -18,7 +19,7 @@ public class UserController {
     @Autowired
     IUserService iUserService;
 
-    @RequestMapping("/getUser")
+    @RequestMapping(value = "/getUser",method = RequestMethod.GET)
     public Result getUser(){
         User  user = (User) SecurityUtils.getSubject().getPrincipal();
         return ResultUtil.success(user);
