@@ -11,6 +11,8 @@ public class Blog {
 
     private String subimage;
 
+    private String category;
+
     private Integer read;
 
     private Integer comment;
@@ -22,6 +24,14 @@ public class Blog {
     private Date updateTime;
 
     private String context;
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
 
     public Integer getId() {
         return id;

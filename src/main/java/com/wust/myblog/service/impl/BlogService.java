@@ -31,7 +31,8 @@ public class BlogService implements IBlogService {
             blog.setComment(0);
             blog.setRead(0);
             Set<String> images = getImgStr(blog.getContext());
-            blog.setSubimage(images.stream().findFirst().get().replace("amp;",""));
+            if (images.size()>0)
+                blog.setSubimage(images.stream().findFirst().get().replace("amp;",""));
             if (blogMapper.insertSelective(blog)>0)
                 return ResultUtil.success("新增成功");
         }

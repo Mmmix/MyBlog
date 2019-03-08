@@ -72,10 +72,10 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    id, title, subimage, `read`, comment, create_time, update_time
+    id, title, subimage, `read`, `comment`,category, create_time, update_time
   </sql>
   <sql id="Blob_Column_List" >
-    context
+    `context`
   </sql>
   <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="com.wust.myblog.modal.BlogExample" >
     select
@@ -127,10 +127,10 @@
   </delete>
   <insert id="insert" parameterType="com.wust.myblog.modal.Blog" >
     insert into blog (id, title, subimage, 
-      `read`, comment, create_time,
+      `read`, comment,category, create_time,
       update_time, context)
     values (#{id,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR}, #{subimage,jdbcType=VARCHAR}, 
-      #{read,jdbcType=INTEGER}, #{comment,jdbcType=INTEGER}, now(),
+      #{read,jdbcType=INTEGER}, #{comment,jdbcType=INTEGER},#{category,jdbcType=VARCHAR}, now(),
       now(), #{context,jdbcType=LONGVARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.wust.myblog.modal.Blog" >
@@ -154,6 +154,9 @@
       <if test="context != null" >
         context,
       </if>
+      <if test="category != null">
+        category,
+      </if>
         create_time,
         update_time
     </trim>
@@ -175,6 +178,9 @@
       </if>
       <if test="context != null" >
         #{context,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="category !=null">
+        #{category,jdbcType=VARCHAR},
       </if>
       now(),
       now()
@@ -285,6 +291,7 @@
       subimage = #{subimage,jdbcType=VARCHAR},
       `read` = #{read,jdbcType=INTEGER},
       comment = #{comment,jdbcType=INTEGER},
+        category = #{category,jdbcType=VARCHAR},
       create_time = #{createTime,jdbcType=TIMESTAMP},
       update_time = now()
     where id = #{id,jdbcType=INTEGER}
