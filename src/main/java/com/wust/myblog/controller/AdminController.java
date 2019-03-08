@@ -47,6 +47,7 @@ public class AdminController {
     @RequestMapping(value = "richtext_img_upload",method = RequestMethod.POST)
     public Map richtextImgUpload(@RequestParam("upload_file") MultipartFile file, HttpServletRequest request){
         Map resultMap = MapUtil.newHashMap();
+        Map data = MapUtil.newHashMap();
         String path = request.getSession().getServletContext().getRealPath("upload");
         String targetFileName = null;
         if (file!=null){
@@ -54,13 +55,15 @@ public class AdminController {
         }
         if (StrUtil.isBlank(targetFileName)){
             resultMap.put("code",-1);
-            resultMap.put("url","");
+            resultMap.put("mag","上传失败");
             return resultMap;
         }
         String url = FtpEnum.ftpEnum.getPrefixUrl()+targetFileName;
-        resultMap.put("code",200);
-        resultMap.put("url",url);
-        resultMap.put("filename",targetFileName);
+        resultMap.put("code",0);
+        resultMap.put("msg","");
+        data.put("src",url);
+        data.put("title",targetFileName);
+        resultMap.put("data",data);
         return resultMap;
     }
 }

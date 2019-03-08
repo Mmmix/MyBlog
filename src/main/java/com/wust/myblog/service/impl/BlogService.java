@@ -23,7 +23,7 @@ import java.util.regex.Pattern;
 public class BlogService implements IBlogService {
 
     @Autowired
-    BlogMapper blogMapper;
+    private BlogMapper blogMapper;
 
     @Override
     public Result addBlog(Blog blog) {
@@ -89,6 +89,7 @@ public class BlogService implements IBlogService {
 
     @Override
     public Result selectBlogById(Integer id) {
+        blogMapper.readBlog(id);
         return ResultUtil.success(blogMapper.selectByPrimaryKey(id));
     }
 

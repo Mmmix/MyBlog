@@ -12,12 +12,24 @@ public class Comment {
 
     private Integer blogId;
 
-    private Integer userId;
+    private String guestName;
+
+    private String guestEmail;
 
     private String content;
 
     @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone="GMT+8")
     private Date createTime;
+
+    private List<Comment> childList;
+
+    public List<Comment> getChildList() {
+        return childList;
+    }
+
+    public void setChildList(List<Comment> childList) {
+        this.childList = childList;
+    }
 
     public Integer getId() {
         return id;
@@ -43,12 +55,20 @@ public class Comment {
         this.blogId = blogId;
     }
 
-    public Integer getUserId() {
-        return userId;
+    public String getGuestName() {
+        return guestName;
     }
 
-    public void setUserId(Integer userId) {
-        this.userId = userId;
+    public void setGuestName(String guestName) {
+        this.guestName = guestName == null ? null : guestName.trim();
+    }
+
+    public String getGuestEmail() {
+        return guestEmail;
+    }
+
+    public void setGuestEmail(String guestEmail) {
+        this.guestEmail = guestEmail == null ? null : guestEmail.trim();
     }
 
     public String getContent() {

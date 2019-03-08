@@ -30,7 +30,6 @@ public class LoginController {
 
     @RequestMapping(value = "/logout", method = RequestMethod.GET)
     public Result logout() {
-
         return iUserService.logout();
     }
 

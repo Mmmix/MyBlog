@@ -33,4 +33,8 @@ public interface BlogMapper {
     int updateByPrimaryKeyWithBLOBs(Blog record);
 
     int updateByPrimaryKey(Blog record);
+
+    void commentBlog(Integer id);
+
+    void readBlog(Integer id);
 }

@@ -1,11 +1,12 @@
 package com.wust.myblog.service.impl;
 
 import cn.hutool.core.collection.CollectionUtil;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
+import com.wust.myblog.mapper.BlogMapper;
 import com.wust.myblog.mapper.CommentMapper;
-import com.wust.myblog.modal.Comment;
-import com.wust.myblog.modal.CommentExample;
-import com.wust.myblog.modal.Result;
-import com.wust.myblog.modal.User;
+import com.wust.myblog.modal.*;
+import com.wust.myblog.modal.common.CommentVo;
 import com.wust.myblog.service.ICommentService;
 import com.wust.myblog.util.ResultUtil;
 import org.apache.shiro.SecurityUtils;
@@ -13,6 +14,7 @@ import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -22,13 +24,14 @@ public class CommentService implements ICommentService {
     @Autowired
     CommentMapper commentMapper;
 
+    @Autowired
+    BlogMapper blogMapper;
+
     @Override
     public Result addComment(Comment comment) {
         if (comment!=null&&comment.getBlogId()!=null){
-            Subject subject = SecurityUtils.getSubject();
-            User user = (User) subject.getPrincipal();
-            comment.setUserId(Integer.valueOf(user.getId().toString()));
             if (commentMapper.insertSelective(comment)>0) {
+                blogMapper.commentBlog(comment.getBlogId());
                 return ResultUtil.success("评论成功");
             }
         }
@@ -45,17 +48,22 @@ public class CommentService implements ICommentService {
     }
 
     @Override
-    public Result selectCommentByBlogId(Integer id) {
+    public Result selectCommentByBlogId(Integer id,Integer pageNum,Integer pageSize) {
         if (id!=null){
+            PageHelper.startPage(pageNum==null?1:pageNum,pageSize==null?5:pageSize);
             CommentExample example = new CommentExample();
             CommentExample.Criteria criteria = example.createCriteria();
             criteria.andBlogIdEqualTo(id);
             criteria.andParentIdEqualTo(0);
-            Subject subject = SecurityUtils.getSubject();
-            User user = (User) subject.getPrincipal();
-            criteria.andUserIdEqualTo(Integer.valueOf(user.getId().toString()));
-            List<Comment> list = commentMapper.selectByExample(example);
-            return ResultUtil.success(list);
+            List<Comment> commentList = commentMapper.selectByExample(example);
+
+            commentList.forEach(comment -> {
+                List<Comment> childComments = new ArrayList<>();
+                selectCommentByParent(comment.getId(),childComments);
+                comment.setChildList(childComments);
+            });
+            PageInfo<Comment> commentPageInfo = new PageInfo<>(commentList);
+            return ResultUtil.success(commentPageInfo);
         }
         return ResultUtil.error("查询错误");
     }
@@ -80,14 +88,4 @@ public class CommentService implements ICommentService {
         }
     }
 
-
-    @Override
-    public Result selectCommentByUserId() {
-        CommentExample commentExample = new CommentExample();
-        CommentExample.Criteria criteria = commentExample.createCriteria();
-        Long id = ((User)(SecurityUtils.getSubject().getPrincipal())).getId();
-        criteria.andUserIdEqualTo(Integer.valueOf(id.toString()));
-        List<Comment> commentList= commentMapper.selectByExample(commentExample);
-        return ResultUtil.success(commentList);
-    }
 }

@@ -9,9 +9,8 @@ public interface ICommentService {
 
     Result deleteComment(Comment comment);
 
-    Result selectCommentByBlogId(Integer id);
+    Result selectCommentByBlogId(Integer id,Integer pageNum,Integer pageSize);
 
     Result selectCommentByParent(Comment comment);
 
-    Result selectCommentByUserId();
 }

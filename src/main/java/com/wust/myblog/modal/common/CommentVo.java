@@ -12,14 +12,16 @@ public class CommentVo {
 
     private Integer blogId;
 
-    private Integer userId;
-
     private String content;
 
     @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone="GMT+8")
     private Date createTime;
 
     private List<Comment> childComment;
+
+    public CommentVo(Comment comment) {
+
+    }
 
     public Date getCreateTime() {
         return createTime;
@@ -43,14 +45,6 @@ public class CommentVo {
 
     public void setBlogId(Integer blogId) {
         this.blogId = blogId;
-    }
-
-    public Integer getUserId() {
-        return userId;
-    }
-
-    public void setUserId(Integer userId) {
-        this.userId = userId;
     }
 
     public String getContent() {

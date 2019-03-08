@@ -18,13 +18,12 @@ public class BlogController {
     private IBlogService iBlogService;
 
     @RequestMapping(value = "detail",method = RequestMethod.GET)
-    public String detail(Integer id){
-        Result result = iBlogService.selectBlogById(id);
+    public Result detail(Integer id){
 
-        return ((Blog)result.getData()).getContext();
+        return iBlogService.selectBlogById(id);
     }
 
-    @RequestMapping(value = "list/{pageNum}")
+    @RequestMapping(value = "list/{pageNum}",method = RequestMethod.GET)
     public Result list(String title, @PathVariable Integer pageNum, Integer pageSize){
         return iBlogService.listBlog(title,pageNum,pageSize);
     }

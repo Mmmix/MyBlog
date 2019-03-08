@@ -289,4 +289,16 @@
       update_time = now()
     where id = #{id,jdbcType=INTEGER}
   </update>
+
+  <update id="commentBlog">
+    update blog
+    set `comment` = `comment` + 1
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+  <update id="readBlog">
+    update blog
+    set `read` = `read` + 1
+    where id = #{id,jdbcType=INTEGER}
+  </update>
 </mapper>
