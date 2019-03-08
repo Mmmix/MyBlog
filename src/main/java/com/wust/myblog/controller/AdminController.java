@@ -45,7 +45,7 @@ public class AdminController {
     }
 
     @RequestMapping(value = "richtext_img_upload",method = RequestMethod.POST)
-    public Map richtextImgUpload(@RequestParam("upload_file") MultipartFile file, HttpServletRequest request){
+    public Map richtextImgUpload(@RequestParam("file") MultipartFile file, HttpServletRequest request){
         Map resultMap = MapUtil.newHashMap();
         Map data = MapUtil.newHashMap();
         String path = request.getSession().getServletContext().getRealPath("upload");
