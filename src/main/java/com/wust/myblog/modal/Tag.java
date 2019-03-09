@@ -1,7 +1,5 @@
 package com.wust.myblog.modal;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-
 import java.util.Date;
 
 public class Tag {
@@ -9,12 +7,10 @@ public class Tag {
 
     private String name;
 
-    private String describe;
+    private Integer blogId;
 
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private Date createTime;
 
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private Date updateTime;
 
     public Integer getId() {
@@ -33,12 +29,12 @@ public class Tag {
         this.name = name == null ? null : name.trim();
     }
 
-    public String getDescribe() {
-        return describe;
+    public Integer getBlogId() {
+        return blogId;
     }
 
-    public void setDescribe(String describe) {
-        this.describe = describe == null ? null : describe.trim();
+    public void setBlogId(Integer blogId) {
+        this.blogId = blogId;
     }
 
     public Date getCreateTime() {

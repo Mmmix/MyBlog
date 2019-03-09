@@ -10,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
 
 @Service
@@ -25,6 +27,28 @@ public class TagService implements ITagService {
         if (tagMapper.insertSelective(tag) > 0)
             return ResultUtil.success("添加分类成功！");
         return ResultUtil.error("添加分类失败！");
+    }
+
+    @Override
+    public boolean addTags(String tags, int id) {
+        String[] tagList = tags.split(",|，");
+        if (tagList.length > 0){
+            Tag tag = new Tag();
+            tag.setBlogId(id);
+            HashSet tagSet = new HashSet();
+
+            tagSet.addAll(Arrays.asList(tagList));
+
+            for (Object tagName: tagSet){
+                tag.setName((String) tagName);
+                System.out.println();
+                if(tagMapper.insertSelective(tag) <= 0){
+                    return  false;
+                }
+            }
+            return true;
+        }
+        return false;
     }
 
     @Override

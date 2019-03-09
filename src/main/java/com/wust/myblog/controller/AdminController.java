@@ -29,8 +29,9 @@ public class AdminController {
     IBlogService iBlogService;
 
     @RequestMapping(value = "add",method = RequestMethod.POST)
-    public Result addBlog(Blog blog){
-        return iBlogService.addBlog(blog);
+    public Result addBlog(Blog blog, String tags){
+
+        return iBlogService.addBlog(blog, tags);
     }
 
     @RequestMapping(value = "upload",method = RequestMethod.POST)

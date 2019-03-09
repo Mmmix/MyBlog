@@ -37,6 +37,6 @@
         <!--<table tableName="user" domainObjectName="User"/>-->
         <!--<table tableName="blog" domainObjectName="Blog" />-->
         <!--<table tableName="comment" domainObjectName="Comment"/>-->
-        <table tableName="comment" domainObjectName="Comment"/>
+        <table tableName="tag" domainObjectName="Tag"/>
     </context>
 </generatorConfiguration>

@@ -8,6 +8,7 @@ import com.wust.myblog.modal.Blog;
 import com.wust.myblog.modal.BlogExample;
 import com.wust.myblog.modal.Result;
 import com.wust.myblog.service.IBlogService;
+import com.wust.myblog.service.ITagService;
 import com.wust.myblog.util.ResultUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,16 +26,22 @@ public class BlogService implements IBlogService {
     @Autowired
     private BlogMapper blogMapper;
 
+    @Autowired
+    private ITagService iTagService;
+
     @Override
-    public Result addBlog(Blog blog) {
+    public Result addBlog(Blog blog, String tags) {
         if (blog!=null){
             blog.setComment(0);
             blog.setRead(0);
             Set<String> images = getImgStr(blog.getContext());
             if (images.size()>0)
                 blog.setSubimage(images.stream().findFirst().get().replace("amp;",""));
-            if (blogMapper.insertSelective(blog)>0)
-                return ResultUtil.success("新增成功");
+            if (blogMapper.insertSelective(blog)>0) {
+                if((!tags.equals("")) && iTagService.addTags(tags, blog.getId())) {
+                    return ResultUtil.success("新增成功");
+                }
+            }
         }
         return ResultUtil.error("新增失败");
     }

@@ -235,73 +235,63 @@ public class TagExample {
             return (Criteria) this;
         }
 
-        public Criteria andDescribeIsNull() {
-            addCriterion("describe is null");
+        public Criteria andBlogIdIsNull() {
+            addCriterion("blog_id is null");
             return (Criteria) this;
         }
 
-        public Criteria andDescribeIsNotNull() {
-            addCriterion("describe is not null");
+        public Criteria andBlogIdIsNotNull() {
+            addCriterion("blog_id is not null");
             return (Criteria) this;
         }
 
-        public Criteria andDescribeEqualTo(String value) {
-            addCriterion("describe =", value, "describe");
+        public Criteria andBlogIdEqualTo(Integer value) {
+            addCriterion("blog_id =", value, "blogId");
             return (Criteria) this;
         }
 
-        public Criteria andDescribeNotEqualTo(String value) {
-            addCriterion("describe <>", value, "describe");
+        public Criteria andBlogIdNotEqualTo(Integer value) {
+            addCriterion("blog_id <>", value, "blogId");
             return (Criteria) this;
         }
 
-        public Criteria andDescribeGreaterThan(String value) {
-            addCriterion("describe >", value, "describe");
+        public Criteria andBlogIdGreaterThan(Integer value) {
+            addCriterion("blog_id >", value, "blogId");
             return (Criteria) this;
         }
 
-        public Criteria andDescribeGreaterThanOrEqualTo(String value) {
-            addCriterion("describe >=", value, "describe");
+        public Criteria andBlogIdGreaterThanOrEqualTo(Integer value) {
+            addCriterion("blog_id >=", value, "blogId");
             return (Criteria) this;
         }
 
-        public Criteria andDescribeLessThan(String value) {
-            addCriterion("describe <", value, "describe");
+        public Criteria andBlogIdLessThan(Integer value) {
+            addCriterion("blog_id <", value, "blogId");
             return (Criteria) this;
         }
 
-        public Criteria andDescribeLessThanOrEqualTo(String value) {
-            addCriterion("describe <=", value, "describe");
+        public Criteria andBlogIdLessThanOrEqualTo(Integer value) {
+            addCriterion("blog_id <=", value, "blogId");
             return (Criteria) this;
         }
 
-        public Criteria andDescribeLike(String value) {
-            addCriterion("describe like", value, "describe");
+        public Criteria andBlogIdIn(List<Integer> values) {
+            addCriterion("blog_id in", values, "blogId");
             return (Criteria) this;
         }
 
-        public Criteria andDescribeNotLike(String value) {
-            addCriterion("describe not like", value, "describe");
+        public Criteria andBlogIdNotIn(List<Integer> values) {
+            addCriterion("blog_id not in", values, "blogId");
             return (Criteria) this;
         }
 
-        public Criteria andDescribeIn(List<String> values) {
-            addCriterion("describe in", values, "describe");
+        public Criteria andBlogIdBetween(Integer value1, Integer value2) {
+            addCriterion("blog_id between", value1, value2, "blogId");
             return (Criteria) this;
         }
 
-        public Criteria andDescribeNotIn(List<String> values) {
-            addCriterion("describe not in", values, "describe");
-            return (Criteria) this;
-        }
-
-        public Criteria andDescribeBetween(String value1, String value2) {
-            addCriterion("describe between", value1, value2, "describe");
-            return (Criteria) this;
-        }
-
-        public Criteria andDescribeNotBetween(String value1, String value2) {
-            addCriterion("describe not between", value1, value2, "describe");
+        public Criteria andBlogIdNotBetween(Integer value1, Integer value2) {
+            addCriterion("blog_id not between", value1, value2, "blogId");
             return (Criteria) this;
         }
 
