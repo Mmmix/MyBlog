@@ -23,6 +23,16 @@ public class Comment {
 
     private List<Comment> childList;
 
+    private String blogTitle;
+
+    public String getBlogTitle() {
+        return blogTitle;
+    }
+
+    public void setBlogTitle(String blogTitle) {
+        this.blogTitle = blogTitle;
+    }
+
     public List<Comment> getChildList() {
         return childList;
     }

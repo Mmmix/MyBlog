@@ -8,6 +8,7 @@ import com.wust.myblog.modal.Blog;
 import com.wust.myblog.modal.Result;
 import com.wust.myblog.modal.User;
 import com.wust.myblog.service.IBlogService;
+import com.wust.myblog.service.ICommentService;
 import com.wust.myblog.service.IFileService;
 import com.wust.myblog.util.ResultUtil;
 import org.apache.shiro.SecurityUtils;
@@ -27,6 +28,8 @@ public class AdminController {
     IFileService iFileService;
     @Autowired
     IBlogService iBlogService;
+    @Autowired
+    ICommentService iCommentService;
 
     @RequestMapping(value = "add",method = RequestMethod.POST)
     public Result addBlog(Blog blog, String tags){
@@ -77,5 +80,10 @@ public class AdminController {
     @RequestMapping(value = "deleteBlog/{id}", method = RequestMethod.GET)
     public Result deleteBlog(@PathVariable Integer id){
         return iBlogService.deleteBlog(id);
+    }
+
+    @RequestMapping(value = "listComment/{pageNum}", method = RequestMethod.GET)
+    public Result listComment(@PathVariable Integer pageNum, Integer pageSize){
+        return iCommentService.selectCommentAll(pageNum, pageSize);
     }
 }

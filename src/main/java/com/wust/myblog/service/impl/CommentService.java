@@ -86,6 +86,25 @@ public class CommentService implements ICommentService {
         return ResultUtil.success(commentList);
     }
 
+    @Override
+    public Result selectCommentAll(Integer pageNum, Integer pageSize) {
+        PageHelper.startPage(pageNum==null?1:pageNum,pageSize==null?10:pageSize);
+        PageInfo<Comment> commentPageInfo;
+        List<Comment> commentList;
+
+        CommentExample commentExample = new CommentExample();
+        CommentExample.Criteria criteria = commentExample.createCriteria();
+        commentExample.setOrderByClause("`create_time` DESC");
+        commentList = commentMapper.selectByExample(commentExample);
+
+        for (Comment comment: commentList){
+            comment.setBlogTitle(blogMapper.selectByPrimaryKey(comment.getBlogId()).getTitle());
+        }
+
+        commentPageInfo = new PageInfo<>(commentList);
+        return ResultUtil.success(commentPageInfo);
+    }
+
     private void selectCommentByParent(Integer parentId,List<Comment> result){
         CommentExample commentExample = new CommentExample();
         CommentExample.Criteria criteria = commentExample.createCriteria();

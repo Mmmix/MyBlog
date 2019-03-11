@@ -15,4 +15,6 @@ public interface ICommentService {
 
     Result selectCommentByParent(Comment comment);
 
+    Result selectCommentAll(Integer pageNum, Integer pageSize);
+
 }
