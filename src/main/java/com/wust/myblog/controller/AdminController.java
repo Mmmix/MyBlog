@@ -34,6 +34,12 @@ public class AdminController {
         return iBlogService.addBlog(blog, tags);
     }
 
+    @RequestMapping(value = "modifyBlog",method = RequestMethod.POST)
+    public Result modBlog(Blog blog, String tags){
+
+        return iBlogService.modBlog(blog, tags);
+    }
+
     @RequestMapping(value = "upload",method = RequestMethod.POST)
     public Result upload(@RequestParam(value = "upload_file",required = false) MultipartFile file, HttpServletRequest request){
         String path = request.getSession().getServletContext().getRealPath("upload");
