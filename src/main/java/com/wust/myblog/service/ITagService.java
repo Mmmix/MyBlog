@@ -7,6 +7,8 @@ public interface ITagService {
 
     Result addTag(Tag tag);
 
+    boolean addTags(String tags, int id);
+
     Result deleteTag(Tag tag);
 
     Result selectTagById(Integer id);

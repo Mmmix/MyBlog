@@ -134,6 +134,9 @@
       now(), #{context,jdbcType=LONGVARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.wust.myblog.modal.Blog" >
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
     insert into blog
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
