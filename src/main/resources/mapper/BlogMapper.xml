@@ -267,6 +267,9 @@
       <if test="comment != null" >
         comment = #{comment,jdbcType=INTEGER},
       </if>
+      <if test="category != null" >
+        category = #{category,jdbcType=VARCHAR},
+      </if>
       <if test="context != null" >
         context = #{context,jdbcType=LONGVARCHAR},
       </if>

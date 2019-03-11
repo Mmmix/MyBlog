@@ -47,6 +47,24 @@ public class BlogService implements IBlogService {
     }
 
     @Override
+    public Result modBlog(Blog blog, String tags) {
+        if (blog!=null){
+            Set<String> images = getImgStr(blog.getContext());
+            if (images.size()>0)
+                blog.setSubimage(images.stream().findFirst().get().replace("amp;",""));
+            if (blogMapper.updateByPrimaryKeySelective(blog)>0) {
+                if(!tags.equals("")) {
+                    iTagService.deleteTagsByBlogId(blog.getId());
+                    if (iTagService.addTags(tags, blog.getId())) {
+                        return ResultUtil.success("修改成功");
+                    }
+                }
+            }
+        }
+        return ResultUtil.error("修改失败");
+    }
+
+    @Override
     public Result listBlog(String title,Integer pageNum,Integer pageSize) {
         PageHelper.startPage(pageNum==null?1:pageNum,pageSize==null?10:pageSize);
         PageInfo<Blog> pageInfo;
