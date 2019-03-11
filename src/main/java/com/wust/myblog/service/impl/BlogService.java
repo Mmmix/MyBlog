@@ -70,14 +70,14 @@ public class BlogService implements IBlogService {
         PageInfo<Blog> pageInfo;
 
         List<Blog> blogList;
-        if (StrUtil.isBlank(title)){
-            blogList = blogMapper.selectByExampleWithBLOBs(null);
-        }else {
-            BlogExample blogExample = new BlogExample();
-            BlogExample.Criteria criteria = blogExample.createCriteria();
+
+        BlogExample blogExample = new BlogExample();
+        BlogExample.Criteria criteria = blogExample.createCriteria();
+        blogExample.setOrderByClause("`create_time` DESC");
+        if (StrUtil.isNotBlank(title)){
             criteria.andTitleLike("%"+title+"%");
-            blogList = blogMapper.selectByExampleWithBLOBs(blogExample);
         }
+        blogList = blogMapper.selectByExampleWithBLOBs(blogExample);
         blogList.forEach(blog-> {
             String b = blog.getContext();
             //消掉html标签
