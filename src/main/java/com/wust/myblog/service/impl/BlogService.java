@@ -8,6 +8,7 @@ import com.wust.myblog.modal.Blog;
 import com.wust.myblog.modal.BlogExample;
 import com.wust.myblog.modal.Result;
 import com.wust.myblog.service.IBlogService;
+import com.wust.myblog.service.ICommentService;
 import com.wust.myblog.service.ITagService;
 import com.wust.myblog.util.ResultUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +29,9 @@ public class BlogService implements IBlogService {
 
     @Autowired
     private ITagService iTagService;
+
+    @Autowired
+    private ICommentService iCommentService;
 
     @Override
     public Result addBlog(Blog blog, String tags) {
@@ -121,8 +125,11 @@ public class BlogService implements IBlogService {
 
     @Override
     public Result deleteBlog(Integer id) {
+        iTagService.deleteTagsByBlogId(id);
+        iCommentService.deleteCommentsByBlogId(id);
+
         if (blogMapper.deleteByPrimaryKey(id) > 0) {
-            return iTagService.deleteTagsByBlogId(id);
+            return ResultUtil.success("删除成功");
         }
         return  ResultUtil.error("删除失败");
     }

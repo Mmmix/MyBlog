@@ -7,6 +7,8 @@ import com.wust.myblog.modal.User;
 public interface ICommentService {
     Result addComment(Comment comment);
 
+    Result deleteCommentsByBlogId(Integer id);
+
     Result deleteComment(Comment comment);
 
     Result selectCommentByBlogId(Integer id,Integer pageNum,Integer pageSize);

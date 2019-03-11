@@ -39,6 +39,17 @@ public class CommentService implements ICommentService {
     }
 
     @Override
+    public Result deleteCommentsByBlogId(Integer id) {
+        CommentExample commentExample = new CommentExample();
+        CommentExample.Criteria criteria = commentExample.createCriteria();
+        criteria.andBlogIdEqualTo(id);
+        if (commentMapper.deleteByExample(commentExample) > 0){
+            return ResultUtil.success("删除成功");
+        }
+        return ResultUtil.error("删除失败");
+    }
+
+    @Override
     public Result deleteComment(Comment comment) {
         if (comment!=null&&comment.getId()!=null){
             if (commentMapper.deleteByPrimaryKey(comment.getId())>0)
