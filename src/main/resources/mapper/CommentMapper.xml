@@ -7,7 +7,7 @@
     <result column="blog_id" property="blogId" jdbcType="INTEGER" />
     <result column="guest_name" property="guestName" jdbcType="VARCHAR" />
     <result column="guest_email" property="guestEmail" jdbcType="VARCHAR" />
-    <result column="content" property="content" jdbcType="VARCHAR" />
+    <result column="content" property="content" jdbcType="LONGVARCHAR" />
     <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
   </resultMap>
   <sql id="Example_Where_Clause" >
@@ -106,7 +106,7 @@
       guest_name, guest_email, content, 
       create_time)
     values (#{id,jdbcType=INTEGER}, #{parentId,jdbcType=INTEGER}, #{blogId,jdbcType=INTEGER}, 
-      #{guestName,jdbcType=VARCHAR}, #{guestEmail,jdbcType=VARCHAR}, #{content,jdbcType=VARCHAR}, 
+      #{guestName,jdbcType=VARCHAR}, #{guestEmail,jdbcType=VARCHAR}, #{content,jdbcType=LONGVARCHAR},
       now())
   </insert>
   <insert id="insertSelective" parameterType="com.wust.myblog.modal.Comment" >
@@ -149,7 +149,7 @@
         #{guestEmail,jdbcType=VARCHAR},
       </if>
       <if test="content != null" >
-        #{content,jdbcType=VARCHAR},
+        #{content,jdbcType=LONGVARCHAR},
       </if>
       now()
     </trim>
@@ -179,7 +179,7 @@
         guest_email = #{record.guestEmail,jdbcType=VARCHAR},
       </if>
       <if test="record.content != null" >
-        content = #{record.content,jdbcType=VARCHAR},
+        content = #{record.content,jdbcType=LONGVARCHAR},
       </if>
       <if test="record.createTime != null" >
         create_time = #{record.createTime,jdbcType=TIMESTAMP},
@@ -196,7 +196,7 @@
       blog_id = #{record.blogId,jdbcType=INTEGER},
       guest_name = #{record.guestName,jdbcType=VARCHAR},
       guest_email = #{record.guestEmail,jdbcType=VARCHAR},
-      content = #{record.content,jdbcType=VARCHAR},
+      content = #{record.content,jdbcType=LONGVARCHAR},
       create_time = #{record.createTime,jdbcType=TIMESTAMP}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
@@ -218,7 +218,7 @@
         guest_email = #{guestEmail,jdbcType=VARCHAR},
       </if>
       <if test="content != null" >
-        content = #{content,jdbcType=VARCHAR},
+        content = #{content,jdbcType=LONGVARCHAR},
       </if>
       <if test="createTime != null" >
         create_time = #{createTime,jdbcType=TIMESTAMP},
@@ -232,7 +232,7 @@
       blog_id = #{blogId,jdbcType=INTEGER},
       guest_name = #{guestName,jdbcType=VARCHAR},
       guest_email = #{guestEmail,jdbcType=VARCHAR},
-      content = #{content,jdbcType=VARCHAR},
+      content = #{content,jdbcType=LONGVARCHAR},
       create_time = #{createTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=INTEGER}
   </update>

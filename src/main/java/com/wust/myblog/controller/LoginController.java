@@ -15,6 +15,7 @@ import com.wust.myblog.util.ResultUtil;
 @RestController
 public class LoginController {
 
+
     @Autowired
     private IUserService iUserService;
 
@@ -61,4 +62,5 @@ public class LoginController {
             return iUserService.forgetUser(email);
         return ResultUtil.error("请输入您的邮箱");
     }
+
 }

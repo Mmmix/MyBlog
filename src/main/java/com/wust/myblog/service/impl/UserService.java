@@ -16,17 +16,23 @@ import org.apache.shiro.subject.Subject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.UUID;
 
 @Service
 @Transactional
 public class UserService implements IUserService {
+
+
+    @Autowired
+    private RedisTemplate redisTemplate;
 
     private Logger log = LoggerFactory.getLogger(this.getClass());
 
@@ -65,11 +71,18 @@ public class UserService implements IUserService {
         }
         //根据权限，指定返回数据
         String role = userMapper.getRole(user.getUsername());
+        String uuidtoken = UUID.randomUUID().toString();
+        redisTemplate.opsForValue().set(uuidtoken,u);
+
         if ("user".equals(role)) {
-            return ResultUtil.success("欢迎登陆");
+            Map result = new HashMap();
+            result.put("token",uuidtoken);
+            return ResultUtil.success(result);
         }
         if ("admin".equals(role)) {
-            return ResultUtil.success("欢迎来到管理员页面");
+            Map result = new HashMap();
+            result.put("token",uuidtoken);
+            return ResultUtil.success(result);
         }
         return ResultUtil.error(-1,"权限错误！");
     }
