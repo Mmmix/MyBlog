@@ -4,7 +4,9 @@ import com.wust.myblog.modal.Tag;
 import com.wust.myblog.modal.TagExample;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public interface TagMapper {
     int countByExample(TagExample example);
 
