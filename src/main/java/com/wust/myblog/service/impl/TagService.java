@@ -65,6 +65,16 @@ public class TagService implements ITagService {
     }
 
     @Override
+    public Result deleteTagsByBlogId(Integer blogId) {
+        TagExample tagExample = new TagExample();
+        TagExample.Criteria criteria = tagExample.createCriteria();
+        criteria.andBlogIdEqualTo(blogId);
+        if (tagMapper.deleteByExample(tagExample) > 0)
+            return ResultUtil.success("删除成功！");
+        return ResultUtil.error("删除失败！");
+    }
+
+    @Override
     public Result selectTagById(Integer id) {
         Tag tag = tagMapper.selectByPrimaryKey(id);
         if (tag != null)
