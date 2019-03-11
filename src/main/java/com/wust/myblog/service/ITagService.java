@@ -11,6 +11,8 @@ public interface ITagService {
 
     Result deleteTag(Tag tag);
 
+    Result deleteTagsByBlogId(Integer blogId);
+
     Result selectTagById(Integer id);
 
     Result selectAll();

@@ -102,8 +102,11 @@ public class BlogService implements IBlogService {
     }
 
     @Override
-    public Result deleteBlog(Blog blog) {
-        return ResultUtil.success(blogMapper.deleteByPrimaryKey(blog.getId()));
+    public Result deleteBlog(Integer id) {
+        if (blogMapper.deleteByPrimaryKey(id) > 0) {
+            return iTagService.deleteTagsByBlogId(id);
+        }
+        return  ResultUtil.error("删除失败");
     }
 
     @Override

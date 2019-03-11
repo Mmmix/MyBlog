@@ -67,4 +67,9 @@ public class AdminController {
         resultMap.put("data",data);
         return resultMap;
     }
+
+    @RequestMapping(value = "deleteBlog/{id}", method = RequestMethod.GET)
+    public Result deleteBlog(@PathVariable Integer id){
+        return iBlogService.deleteBlog(id);
+    }
 }

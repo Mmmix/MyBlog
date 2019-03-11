@@ -7,6 +7,6 @@ public interface IBlogService {
     Result addBlog(Blog blog, String tags);
     Result listBlog(String title,Integer pageNum,Integer pageSize);
     Result selectBlogById(Integer id);
-    Result deleteBlog(Blog blog);
+    Result deleteBlog(Integer id);
     Result setBlogTag(Blog blog);
 }
