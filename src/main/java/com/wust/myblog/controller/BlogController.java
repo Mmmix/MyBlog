@@ -1,5 +1,6 @@
 package com.wust.myblog.controller;
 
+import cn.hutool.core.util.StrUtil;
 import com.github.pagehelper.PageInfo;
 import com.wust.myblog.modal.Blog;
 import com.wust.myblog.modal.Result;
@@ -24,8 +25,8 @@ public class BlogController {
     }
 
     @RequestMapping(value = "list/{pageNum}",method = RequestMethod.GET)
-    public Result list(String title, @PathVariable Integer pageNum, Integer pageSize){
-        return iBlogService.listBlog(title,pageNum,pageSize);
+    public Result list(String title, @PathVariable Integer pageNum, Integer pageSize,String category){
+        return iBlogService.listBlog(title,pageNum,pageSize,category);
     }
 
     @RequestMapping(value = "listByCategory/{pageNum}", method = RequestMethod.GET)

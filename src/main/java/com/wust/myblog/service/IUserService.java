@@ -8,7 +8,7 @@ public interface IUserService {
 
     Result login(User user);
 
-    Result logout();
+    Result logout(String token);
 
     Result register(User user);
 

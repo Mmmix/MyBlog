@@ -14,6 +14,7 @@ import com.wust.myblog.service.IFileService;
 import com.wust.myblog.util.ResultUtil;
 import org.apache.shiro.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -32,10 +33,17 @@ public class AdminController {
     @Autowired
     ICommentService iCommentService;
 
-    @RequestMapping(value = "add",method = RequestMethod.POST)
-    public Result addBlog(Blog blog, String tags){
+    @Autowired
+    RedisTemplate redisTemplate;
 
-        return iBlogService.addBlog(blog, tags);
+    @RequestMapping(value = "add",method = RequestMethod.POST)
+    public Result addBlog(Blog blog, String tags,String token){
+
+        if (token!=null&&redisTemplate.opsForValue().get(token)!=null){
+            return iBlogService.addBlog(blog, tags);
+        }
+        return ResultUtil.error("用户未登录");
+
     }
 
     @RequestMapping(value = "modifyBlog",method = RequestMethod.POST)

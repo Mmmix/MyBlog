@@ -6,7 +6,7 @@ import com.wust.myblog.modal.Result;
 public interface IBlogService {
     Result addBlog(Blog blog, String tags);
     Result modBlog(Blog blog, String tags);
-    Result listBlog(String title,Integer pageNum,Integer pageSize);
+    Result listBlog(String title,Integer pageNum,Integer pageSize,String category);
     Result selectBlogById(Integer id);
     Result deleteBlog(Integer id);
     Result setBlogTag(Blog blog);

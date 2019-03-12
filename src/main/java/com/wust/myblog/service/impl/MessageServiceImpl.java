@@ -47,6 +47,7 @@ public class MessageServiceImpl implements IMessageService {
         MessageExample example = new MessageExample();
         MessageExample.Criteria criteria = example.createCriteria();
         criteria.andParentIdEqualTo(0);
+        example.setOrderByClause("create_time DESC");
         List<Message> messageList = messageMapper.selectByExampleWithBLOBs(example);
         messageList.forEach(message -> {
             List<Message> list = new ArrayList<>();

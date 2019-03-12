@@ -45,7 +45,7 @@ public class BlogService implements IBlogService {
             if (images.size()>0)
                 blog.setSubimage(images.stream().findFirst().get().replace("amp;",""));
             if (blogMapper.insertSelective(blog)>0) {
-                if((!tags.equals("")) && iTagService.addTags(tags, blog.getId())) {
+                if((!StrUtil.isBlank(tags)) && iTagService.addTags(tags, blog.getId())) {
                     return ResultUtil.success("新增成功");
                 }
             }
@@ -72,7 +72,7 @@ public class BlogService implements IBlogService {
     }
 
     @Override
-    public Result listBlog(String title,Integer pageNum,Integer pageSize) {
+    public Result listBlog(String title,Integer pageNum,Integer pageSize,String category) {
         PageHelper.startPage(pageNum==null?1:pageNum,pageSize==null?10:pageSize);
 
         BlogExample blogExample = new BlogExample();
@@ -80,6 +80,9 @@ public class BlogService implements IBlogService {
         blogExample.setOrderByClause("`create_time` DESC");
         if (StrUtil.isNotBlank(title)){
             criteria.andTitleLike("%"+title+"%");
+        }
+        if (StrUtil.isNotBlank(category)){
+            criteria.andCategoryEqualTo(category);
         }
         blogList = blogMapper.selectByExampleWithBLOBs(blogExample);
         blogList.forEach(this::processBlogContent);

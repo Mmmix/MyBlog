@@ -88,10 +88,11 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public Result logout() {
+    public Result logout(String token) {
         Subject subject = SecurityUtils.getSubject();
         //注销
         subject.logout();
+        redisTemplate.delete(token);
         return ResultUtil.success("成功注销！");
     }
 
