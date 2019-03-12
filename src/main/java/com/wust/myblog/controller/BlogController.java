@@ -28,4 +28,8 @@ public class BlogController {
         return iBlogService.listBlog(title,pageNum,pageSize);
     }
 
+    @RequestMapping(value = "listByCategory/{pageNum}", method = RequestMethod.GET)
+    public Result listByCategory(String category, @PathVariable Integer pageNum, Integer pageSize){
+        return iBlogService.listBlogByCategory(category, pageNum, pageSize);
+    }
 }

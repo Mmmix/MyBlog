@@ -25,14 +25,6 @@ public class Blog {
 
     private String context;
 
-    public String getCategory() {
-        return category;
-    }
-
-    public void setCategory(String category) {
-        this.category = category;
-    }
-
     public Integer getId() {
         return id;
     }
@@ -55,6 +47,14 @@ public class Blog {
 
     public void setSubimage(String subimage) {
         this.subimage = subimage == null ? null : subimage.trim();
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category == null ? null : category.trim();
     }
 
     public Integer getRead() {

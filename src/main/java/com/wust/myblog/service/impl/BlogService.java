@@ -33,6 +33,9 @@ public class BlogService implements IBlogService {
     @Autowired
     private ICommentService iCommentService;
 
+    private PageInfo<Blog> pageInfo;
+    private List<Blog> blogList;
+
     @Override
     public Result addBlog(Blog blog, String tags) {
         if (blog!=null){
@@ -71,9 +74,6 @@ public class BlogService implements IBlogService {
     @Override
     public Result listBlog(String title,Integer pageNum,Integer pageSize) {
         PageHelper.startPage(pageNum==null?1:pageNum,pageSize==null?10:pageSize);
-        PageInfo<Blog> pageInfo;
-
-        List<Blog> blogList;
 
         BlogExample blogExample = new BlogExample();
         BlogExample.Criteria criteria = blogExample.createCriteria();
@@ -82,15 +82,7 @@ public class BlogService implements IBlogService {
             criteria.andTitleLike("%"+title+"%");
         }
         blogList = blogMapper.selectByExampleWithBLOBs(blogExample);
-        blogList.forEach(blog-> {
-            String b = blog.getContext();
-            //消掉html标签
-            b = b.replaceAll("</?[a-zA-Z]+[^><]*>","");
-            if (b.length()>100)
-                blog.setContext(b.substring(0,100));
-            else
-                blog.setContext(b);
-        });
+        blogList.forEach(this::processBlogContent);
         pageInfo = new PageInfo<>(blogList);
         return ResultUtil.success(pageInfo);
     }
@@ -137,5 +129,31 @@ public class BlogService implements IBlogService {
     @Override
     public Result setBlogTag(Blog blog) {
         return ResultUtil.success(blogMapper.updateByPrimaryKeySelective(blog));
+    }
+
+    @Override
+    public Result listBlogByCategory(String category, Integer pageNum, Integer pageSize) {
+        PageHelper.startPage(pageNum==null?1:pageNum,pageSize==null?10:pageSize);
+
+        BlogExample blogExample = new BlogExample();
+        BlogExample.Criteria criteria = blogExample.createCriteria();
+        blogExample.setOrderByClause("`create_time` DESC");
+        if (StrUtil.isNotBlank(category)){
+            criteria.andCategoryEqualTo(category);
+        }
+        blogList = blogMapper.selectByExampleWithBLOBs(blogExample);
+        blogList.forEach(this::processBlogContent);
+        pageInfo = new PageInfo<>(blogList);
+        return ResultUtil.success(pageInfo);
+    }
+
+    private void processBlogContent(Blog blog){
+        String b = blog.getContext();
+        //消掉html标签
+        b = b.replaceAll("</?[a-zA-Z]+[^><]*>","");
+        if (b.length()>100)
+            blog.setContext(b.substring(0,100));
+        else
+            blog.setContext(b);
     }
 }

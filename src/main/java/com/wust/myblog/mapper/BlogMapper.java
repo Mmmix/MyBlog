@@ -36,7 +36,7 @@ public interface BlogMapper {
 
     int updateByPrimaryKey(Blog record);
 
-    void commentBlog(Integer id);
+    int readBlog(Integer id);
 
-    void readBlog(Integer id);
+    int commentBlog(Integer blogId);
 }

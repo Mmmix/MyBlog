@@ -10,4 +10,5 @@ public interface IBlogService {
     Result selectBlogById(Integer id);
     Result deleteBlog(Integer id);
     Result setBlogTag(Blog blog);
+    Result listBlogByCategory(String category, Integer pageNum, Integer pageSize);
 }
