@@ -5,6 +5,7 @@ import cn.hutool.core.map.MapUtil;
 import cn.hutool.core.util.StrUtil;
 import com.wust.myblog.common.FtpEnum;
 import com.wust.myblog.modal.Blog;
+import com.wust.myblog.modal.Comment;
 import com.wust.myblog.modal.Result;
 import com.wust.myblog.modal.User;
 import com.wust.myblog.service.IBlogService;
@@ -86,4 +87,14 @@ public class AdminController {
     public Result listComment(@PathVariable Integer pageNum, Integer pageSize){
         return iCommentService.selectCommentAll(pageNum, pageSize);
     }
+
+    @RequestMapping(value = "deleteComment/{id}", method = RequestMethod.GET)
+    public Result deleteComment(@PathVariable Integer id){
+        return iCommentService.deleteCommentById(id);
+    }
+
+//    @RequestMapping(value = "replyComment", method = RequestMethod.POST)
+//    public Result replyComment(Comment comment){
+//        return iCommentService.addComment(comment);
+//    }
 }

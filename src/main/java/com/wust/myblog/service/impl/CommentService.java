@@ -105,6 +105,16 @@ public class CommentService implements ICommentService {
         return ResultUtil.success(commentPageInfo);
     }
 
+    @Override
+    public Result deleteCommentById(Integer id){
+        if (id != null){
+            if (commentMapper.deleteByPrimaryKey(id) > 0){
+                return  ResultUtil.success("删除成功");
+            }
+        }
+        return ResultUtil.error("删除失败");
+    }
+
     private void selectCommentByParent(Integer parentId,List<Comment> result){
         CommentExample commentExample = new CommentExample();
         CommentExample.Criteria criteria = commentExample.createCriteria();

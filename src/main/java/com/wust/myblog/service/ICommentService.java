@@ -17,4 +17,5 @@ public interface ICommentService {
 
     Result selectCommentAll(Integer pageNum, Integer pageSize);
 
+    Result deleteCommentById(Integer id);
 }
