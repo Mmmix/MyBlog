@@ -25,6 +25,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
+import java.util.concurrent.TimeUnit;
 
 @Service
 @Transactional
@@ -72,15 +73,16 @@ public class UserService implements IUserService {
         //根据权限，指定返回数据
         String role = userMapper.getRole(user.getUsername());
         String uuidtoken = UUID.randomUUID().toString();
+        u.setPassword("");
         redisTemplate.opsForValue().set(uuidtoken,u);
+        redisTemplate.expire(uuidtoken,10, TimeUnit.MINUTES);
 
         if ("user".equals(role)) {
             Map result = new HashMap();
-            result.put("token",uuidtoken);
             return ResultUtil.success(result);
         }
         if ("admin".equals(role)) {
-            Map result = new HashMap();
+            Map<String,Object> result = new HashMap<>();
             result.put("token",uuidtoken);
             return ResultUtil.success(result);
         }
@@ -89,10 +91,13 @@ public class UserService implements IUserService {
 
     @Override
     public Result logout(String token) {
-        Subject subject = SecurityUtils.getSubject();
-        //注销
-        subject.logout();
-        redisTemplate.delete(token);
+
+        if (token!=null&&redisTemplate.opsForValue().get(token)!=null){
+            Subject subject = SecurityUtils.getSubject();
+            //注销
+            subject.logout();
+            redisTemplate.delete(token);
+        }
         return ResultUtil.success("成功注销！");
     }
 

@@ -36,69 +36,80 @@ public class AdminController {
     @Autowired
     RedisTemplate redisTemplate;
 
-    @RequestMapping(value = "add",method = RequestMethod.POST)
-    public Result addBlog(Blog blog, String tags,String token){
+    @RequestMapping(value = "add", method = RequestMethod.POST)
+    public Result addBlog(Blog blog, String tags, String token) {
 
-        if (token!=null&&redisTemplate.opsForValue().get(token)!=null){
+        if (token != null && redisTemplate.opsForValue().get(token) != null) {
             return iBlogService.addBlog(blog, tags);
         }
         return ResultUtil.error("用户未登录");
 
     }
 
-    @RequestMapping(value = "modifyBlog",method = RequestMethod.POST)
-    public Result modBlog(Blog blog, String tags){
+    @RequestMapping(value = "modifyBlog", method = RequestMethod.POST)
+    public Result modBlog(Blog blog, String tags, String token) {
 
-        return iBlogService.modBlog(blog, tags);
+        if (token != null && redisTemplate.opsForValue().get(token) != null) {
+            return iBlogService.modBlog(blog, tags);
+        }
+        return ResultUtil.error("用户未登录");
     }
 
-    @RequestMapping(value = "upload",method = RequestMethod.POST)
-    public Result upload(@RequestParam(value = "upload_file",required = false) MultipartFile file, HttpServletRequest request){
+    @RequestMapping(value = "upload", method = RequestMethod.POST)
+    public Result upload(@RequestParam(value = "upload_file", required = false) MultipartFile file, HttpServletRequest request) {
         String path = request.getSession().getServletContext().getRealPath("upload");
-        String targetFileName = iFileService.upload(file,path);
-        String url = FtpEnum.ftpEnum.getPrefixUrl()+targetFileName;
+        String targetFileName = iFileService.upload(file, path);
+        String url = FtpEnum.ftpEnum.getPrefixUrl() + targetFileName;
         Map fileMap = MapUtil.newHashMap();
-        fileMap.put("uri",targetFileName);
-        fileMap.put("url",url);
+        fileMap.put("uri", targetFileName);
+        fileMap.put("url", url);
         return ResultUtil.success(fileMap);
     }
 
-    @RequestMapping(value = "richtext_img_upload",method = RequestMethod.POST)
-    public Map richtextImgUpload(@RequestParam("file") MultipartFile file, HttpServletRequest request){
+    @RequestMapping(value = "richtext_img_upload", method = RequestMethod.POST)
+    public Map richtextImgUpload(@RequestParam("file") MultipartFile file, HttpServletRequest request) {
         Map resultMap = MapUtil.newHashMap();
         Map data = MapUtil.newHashMap();
         String path = request.getSession().getServletContext().getRealPath("upload");
         String targetFileName = null;
-        if (file!=null){
-             targetFileName = iFileService.upload(file,path);
+        if (file != null) {
+            targetFileName = iFileService.upload(file, path);
         }
-        if (StrUtil.isBlank(targetFileName)){
-            resultMap.put("code",-1);
-            resultMap.put("mag","上传失败");
+        if (StrUtil.isBlank(targetFileName)) {
+            resultMap.put("code", -1);
+            resultMap.put("mag", "上传失败");
             return resultMap;
         }
-        String url = FtpEnum.ftpEnum.getPrefixUrl()+targetFileName;
-        resultMap.put("code",0);
-        resultMap.put("msg","");
-        data.put("src",url);
-        data.put("title",targetFileName);
-        resultMap.put("data",data);
+        String url = FtpEnum.ftpEnum.getPrefixUrl() + targetFileName;
+        resultMap.put("code", 0);
+        resultMap.put("msg", "");
+        data.put("src", url);
+        data.put("title", targetFileName);
+        resultMap.put("data", data);
         return resultMap;
     }
 
     @RequestMapping(value = "deleteBlog/{id}", method = RequestMethod.GET)
-    public Result deleteBlog(@PathVariable Integer id){
-        return iBlogService.deleteBlog(id);
+    public Result deleteBlog(@PathVariable Integer id, String token) {
+
+        if (token != null && redisTemplate.opsForValue().get(token) != null) {
+            return iBlogService.deleteBlog(id);
+        }
+        return ResultUtil.error("用户未登录");
     }
 
     @RequestMapping(value = "listComment/{pageNum}", method = RequestMethod.GET)
-    public Result listComment(@PathVariable Integer pageNum, Integer pageSize){
+    public Result listComment(@PathVariable Integer pageNum, Integer pageSize) {
         return iCommentService.selectCommentAll(pageNum, pageSize);
     }
 
     @RequestMapping(value = "deleteComment/{id}", method = RequestMethod.GET)
-    public Result deleteComment(@PathVariable Integer id){
-        return iCommentService.deleteCommentById(id);
+    public Result deleteComment(@PathVariable Integer id, String token) {
+
+        if (token != null && redisTemplate.opsForValue().get(token) != null) {
+            return iCommentService.deleteCommentById(id);
+        }
+        return ResultUtil.error("用户未登录");
     }
 
 //    @RequestMapping(value = "replyComment", method = RequestMethod.POST)
