@@ -24,7 +24,7 @@ public class CommentService implements ICommentService {
     @Autowired
     CommentMapper commentMapper;
 
-    @Autowired
+  @Autowired
     BlogMapper blogMapper;
 
     @Override
@@ -52,8 +52,10 @@ public class CommentService implements ICommentService {
     @Override
     public Result deleteComment(Comment comment) {
         if (comment!=null&&comment.getId()!=null){
-            if (commentMapper.deleteByPrimaryKey(comment.getId())>0)
+            if (commentMapper.deleteByPrimaryKey(comment.getId())>0){
+                blogMapper.deleteComment();
                 return ResultUtil.success();
+            }
         }
         return ResultUtil.error("删除失败");
     }

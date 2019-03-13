@@ -332,6 +332,12 @@
     where id = #{id,jdbcType=INTEGER}
   </update>
 
+  <update id="deleteComment">
+    update blog
+    set `comment` = `comment` - 1
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
   <update id="readBlog">
     update blog
     set `read` = `read` + 1

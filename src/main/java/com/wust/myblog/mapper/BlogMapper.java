@@ -39,4 +39,6 @@ public interface BlogMapper {
     int readBlog(Integer id);
 
     int commentBlog(Integer blogId);
+
+    int deleteComment();
 }
