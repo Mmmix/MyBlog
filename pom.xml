@@ -131,41 +131,41 @@
                 <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
             <!-- mybatis generator 自动生成代码插件 -->
-            <plugin>
-                <groupId>org.mybatis.generator</groupId>
-                <artifactId>mybatis-generator-maven-plugin</artifactId>
-                <version>1.3.2</version>
-                <dependencies>
-                    <dependency>
-                        <groupId>mysql</groupId>
-                        <artifactId>mysql-connector-java</artifactId>
-                        <version>5.1.38</version>
-                    </dependency>
-                    <dependency>
-                        <groupId>org.mybatis.generator</groupId>
-                        <artifactId>mybatis-generator-core</artifactId>
-                        <version>1.3.2</version>
-                    </dependency>
-                </dependencies>
-                <executions>
-                    <execution>
-                        <id>Generate MyBatis Artifacts</id>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>generate</goal>
-                        </goals>
-                    </execution>
-                </executions>
-                <configuration>
-                    <!--&lt;!&ndash;允许移动生成的文件 &ndash;&gt;-->
-                    <verbose>true</verbose>
-                    <!--&lt;!&ndash; 是否覆盖 &ndash;&gt;-->
-                    <overwrite>true</overwrite>
-                    <!--&lt;!&ndash; 自动生成的配置 &ndash;&gt;-->
-                    <configurationFile>
-                        src/main/resources/mybatis-generator.xml</configurationFile>
-                </configuration>
-            </plugin>
+            <!--<plugin>-->
+                <!--<groupId>org.mybatis.generator</groupId>-->
+                <!--<artifactId>mybatis-generator-maven-plugin</artifactId>-->
+                <!--<version>1.3.2</version>-->
+                <!--<dependencies>-->
+                    <!--<dependency>-->
+                        <!--<groupId>mysql</groupId>-->
+                        <!--<artifactId>mysql-connector-java</artifactId>-->
+                        <!--<version>5.1.38</version>-->
+                    <!--</dependency>-->
+                    <!--<dependency>-->
+                        <!--<groupId>org.mybatis.generator</groupId>-->
+                        <!--<artifactId>mybatis-generator-core</artifactId>-->
+                        <!--<version>1.3.2</version>-->
+                    <!--</dependency>-->
+                <!--</dependencies>-->
+                <!--<executions>-->
+                    <!--<execution>-->
+                        <!--<id>Generate MyBatis Artifacts</id>-->
+                        <!--<phase>package</phase>-->
+                        <!--<goals>-->
+                            <!--<goal>generate</goal>-->
+                        <!--</goals>-->
+                    <!--</execution>-->
+                <!--</executions>-->
+                <!--<configuration>-->
+                    <!--&lt;!&ndash;&lt;!&ndash;允许移动生成的文件 &ndash;&gt;&ndash;&gt;-->
+                    <!--<verbose>true</verbose>-->
+                    <!--&lt;!&ndash;&lt;!&ndash; 是否覆盖 &ndash;&gt;&ndash;&gt;-->
+                    <!--<overwrite>true</overwrite>-->
+                    <!--&lt;!&ndash;&lt;!&ndash; 自动生成的配置 &ndash;&gt;&ndash;&gt;-->
+                    <!--<configurationFile>-->
+                        <!--src/main/resources/mybatis-generator.xml</configurationFile>-->
+                <!--</configuration>-->
+            <!--</plugin>-->
         </plugins>
     </build>
 
