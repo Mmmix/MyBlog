@@ -1,9 +1,9 @@
 spring:
   redis:
     database: 0
-    host: 47.107.227.152
+    host: 39.108.84.248
     port: 6379
-    password: shen@2017
+    password: mei@2019
   datasource:
     url: jdbc:mysql://39.108.84.248:3306/blog?useUnicode=true&characterEncoding=utf8&useSSL=false
     username: root
